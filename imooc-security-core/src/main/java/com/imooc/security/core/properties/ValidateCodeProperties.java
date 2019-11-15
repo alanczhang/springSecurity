@@ -28,5 +28,4 @@ public class ValidateCodeProperties {
 	public void setSms(SmsCodeProperties sms) {
 		this.sms = sms;
 	}
-	
 }
