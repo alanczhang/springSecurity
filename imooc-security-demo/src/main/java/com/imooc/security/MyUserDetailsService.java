@@ -87,7 +87,8 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
 				password,  //encode方法是加密的时候用的
 				//true,true,true,true,//依次代表 可用，没过期，密码没过期，没有被锁定为false
 				true, true, true, true,
-				AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+				//AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+				AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN"));
 	}
 
 }

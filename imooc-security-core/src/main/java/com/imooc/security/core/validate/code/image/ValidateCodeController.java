@@ -24,7 +24,7 @@ import java.util.Random;
 @RestController
 public class ValidateCodeController {
 
-	private static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
+	public static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
 
 	//操作Session的类
 	private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
@@ -49,10 +49,12 @@ public class ValidateCodeController {
 		Graphics graphics = image.getGraphics();
 		Random random = new Random();
 
-		graphics.setColor(getRandColor(200,250));
+		//graphics.setColor(getRandColor(200,250));
+		graphics.setColor(getRandColor(130,140));
 		graphics.fillRect(0, 0, width, height);
 		graphics.setFont(new Font("Times New Roman", Font.ITALIC, 20));
-		graphics.setColor(getRandColor(160,200));
+		//graphics.setColor(getRandColor(160,200));
+		graphics.setColor(getRandColor(110,150));
 		for(int i=0;i<155;i++) {
 			int x = random.nextInt(width);
 			int y = random.nextInt(height);

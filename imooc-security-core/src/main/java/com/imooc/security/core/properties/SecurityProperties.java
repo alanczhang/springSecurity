@@ -15,14 +15,14 @@ public class SecurityProperties {
 
 	private BrowserProperties browser = new BrowserProperties();
 
-	private ValidateCodeProperties validate = new ValidateCodeProperties();
+	private ValidateCodeProperties code = new ValidateCodeProperties();
 
-	public ValidateCodeProperties getValidate() {
-		return validate;
+	public ValidateCodeProperties getCode() {
+		return code;
 	}
 
-	public void setValidate(ValidateCodeProperties validate) {
-		this.validate = validate;
+	public void setCode(ValidateCodeProperties validate) {
+		this.code = validate;
 	}
 
 	public BrowserProperties getBrowser() {

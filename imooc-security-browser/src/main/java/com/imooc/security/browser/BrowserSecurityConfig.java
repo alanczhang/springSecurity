@@ -2,9 +2,11 @@
  * 
  */
 package com.imooc.security.browser;
+
 import com.imooc.security.browser.authentication.ImoocAuthenctiationFailureHandler;
 import com.imooc.security.browser.authentication.ImoocAuthenticationSuccessHandler;
 import com.imooc.security.core.properties.SecurityProperties;
+import com.imooc.security.core.validate.code.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,8 +36,19 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 	private ImoocAuthenctiationFailureHandler imoocAuthenctiationFailureHandler;
 
 
+
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+
+
+
+		ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
+		validateCodeFilter.setAuthenticationFailureHandler(imoocAuthenctiationFailureHandler);
+		//传递参数
+		validateCodeFilter.setSecurityProperties(securityProperties);
+		validateCodeFilter.afterPropertiesSet();
+
 		//实现的效果：让它去表单登录，而不是alert框
 		//http.httpBasic()
 		http.formLogin()
@@ -44,12 +57,13 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 				.successHandler(imoocAuthenticationSuccessHandler)//成功后 使用我们自己的处理器处理
 				.failureHandler(imoocAuthenctiationFailureHandler )
 				.and()
-				.authorizeRequests()//对请求进行授权
+			.authorizeRequests()//对请求进行授权
 				//当访问这个路径的时候不需要身份认证 除了它其他的是需要身份认证
 				.antMatchers(loginPage).permitAll()
 				.antMatchers(securityProperties.getBrowser().getLoginPage()).permitAll()
 				.antMatchers("/code/image").permitAll()
-				.anyRequest()//任何请求
+				.antMatchers( "/user" ).hasRole( "ADMIN" )
+			.anyRequest()//任何请求
 				.authenticated()
 				.and()
 				.csrf().disable();      //关闭csrf;
